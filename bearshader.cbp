@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="bearshader" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/bearshader" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-std=c++11" />
+					<Add option="-g" />
+				</Compiler>
+				<Linker>
+					<Add option="-lMinGW32 -lSDL2main -lSDL2 -lSDL2_image" />
+					<Add option="-lSDL2_ttf -lSDL2_mixer" />
+				</Linker>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/bearshader" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+					<Add option="-std=c++11" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add option="-lMinGW32 -lSDL2main -lSDL2 -lSDL2_image" />
+					<Add option="-lSDL2_ttf -lSDL2_mixer" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+		</Compiler>
+		<Unit filename="camera.cpp" />
+		<Unit filename="camera.hpp" />
+		<Unit filename="collision.h" />
+		<Unit filename="configmanager.cpp" />
+		<Unit filename="configmanager.hpp" />
+		<Unit filename="definitions.hpp" />
+		<Unit filename="gamebase.cpp" />
+		<Unit filename="gamebase.hpp" />
+		<Unit filename="geometry.cpp" />
+		<Unit filename="geometry.hpp" />
+		<Unit filename="inputmanager.cpp" />
+		<Unit filename="inputmanager.hpp" />
+		<Unit filename="main.cpp" />
+		<Unit filename="object.hpp" />
+		<Unit filename="renderhelp.cpp" />
+		<Unit filename="renderhelp.hpp" />
+		<Unit filename="shader/title.cpp" />
+		<Unit filename="shader/title.hpp" />
+		<Unit filename="smarttexture.cpp" />
+		<Unit filename="smarttexture.hpp" />
+		<Unit filename="sprite.cpp" />
+		<Unit filename="sprite.hpp" />
+		<Unit filename="state.cpp" />
+		<Unit filename="state.hpp" />
+		<Unit filename="text.cpp" />
+		<Unit filename="text.hpp" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
