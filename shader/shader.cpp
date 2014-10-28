@@ -9,11 +9,11 @@ Shader::Shader(int sx,int sy,int blockwh){
     sizeY = sy/blockwh;
     sizeX = sx/blockwh;
     blockSize = blockwh;
-    PermissiveAmbient = 55.5;
+    PermissiveAmbient = 20.5;
     MaxCycles = 74;
     ShadeMap = new unsigned char*[sy/blockwh];
     DataMap = new unsigned char*[sy/blockwh];
-    UseThreads = 32;
+    UseThreads = 8;
     for (int y=0;y<sizeY;y++){
         ShadeMap[y] = new unsigned char[sx/blockwh];
         DataMap[y] = new unsigned char[sx/blockwh];
@@ -29,17 +29,19 @@ Shader::Shader(int sx,int sy,int blockwh){
     for (int i=0;i<UseThreads;i++){
 
        Maps[i] = new unsigned char*[sizeY];
-       Mapsaux[i] = new unsigned char*[sizeY];
+
        for (int y=0;y<sizeY;y++){
             Maps[i][y]      = new unsigned char[sizeX];
-            Mapsaux[i][y]   = new unsigned char[sizeX];
+
             for (int x=0;x<sizeX;x++){
                 Maps[i][y][x] = 255;
-                Mapsaux[i][y][x] = 255;
             }
        }
 
     }
+
+    light = new Sprite("img/light.png");
+    block = new Sprite("img/block.png");
 
 }
 Shader::~Shader(){
@@ -48,6 +50,8 @@ Shader::~Shader(){
         delete DataMap[y];
     }
 
+    delete light;
+    delete block;
     delete ShadeMap;
     delete DataMap;
 }
@@ -79,20 +83,34 @@ int  Shader::GetAround(unsigned char** map,int x,int y){
     return n/k;
 }
 
+void Shader::ClearLights(){
+    for (int y=0;y<sizeY;y++){
+        for (int x=0;x<sizeX;x++){
+            if (DataMap[y][x] <= 126 and DataMap[y][x] != 0){
+                DataMap[y][x] = 0;
+            }
+        }
+    }
+}
 void Shader::AddLight(int x,int y,unsigned char strenght){
-    if (IsInLimits(x,y)){
+    if (IsInLimits(x,y) && DataMap[y][x] == 0){
         DataMap[y][x] = (((strenght/2)) & 127) -1;
+    }
+}
+void Shader::AddBlock(int x,int y,unsigned char strenght){
+    if (IsInLimits(x,y) && DataMap[y][x] == 0){
+        DataMap[y][x] = (((strenght/2)) & 127) + 126;
     }
 }
 
 
-unsigned char** Shader::ShootLightRay(int x,int y,unsigned char strenght, unsigned char ** ShadeMapAux, unsigned char **ShadeMapAux2){
+unsigned char** Shader::ShootLightRay(int x,int y,unsigned char strenght, unsigned char ** ShadeMapAux){
     unsigned char** VartoRet= new unsigned char*[sizeY];
     for (int y=0;y<sizeY;y++){
         VartoRet[y] = new unsigned char[sizeX];
         for (int x=0;x<sizeX;x++){
             ShadeMapAux[y][x] = 255;
-            ShadeMapAux2[y][x] = 255;
+
             VartoRet[y][x] = 255;
         }
     }
@@ -110,29 +128,27 @@ unsigned char** Shader::ShootLightRay(int x,int y,unsigned char strenght, unsign
             lsy = sy;
 
             if (IsInLimits(x+sx,y+sy)){
-                if(ShadeMapAux[y+sy][x+sx] == 255 and DataMap[y+sy][x+sx] <= 126 ){ //fix
+                if(ShadeMapAux[y+sy][x+sx] == 255 and DataMap[y][x] != 0 and DataMap[y+sy][x+sx] <= 126 ){ //fix
                 //
-                register unsigned char Lum = ShadeMapAux[y+sy][x+sx];
-                Lum = std::max(0,  (Lum)-(int)(STR));
-                ShadeMapAux[y+sy][x+sx] = Lum;
+                    unsigned char Lum = ShadeMapAux[y+sy][x+sx];
+                    Lum = std::max(0,  (Lum)-(int)(STR));
+                    ShadeMapAux[y+sy][x+sx] = Lum;
+                }else if (DataMap[y+sy][x+sx] > 126){
+                    unsigned char Lum = ShadeMapAux[y+sy][x+sx];
+                    Lum = std::max(0,  (Lum)-(int)(STR));
+                    ShadeMapAux[y+sy][x+sx] = Lum;
+                    STR -= (255/DataMap[y+sy][x+sx]*STR);
                 }
-
-
-
            }
            STR -= PermissiveAmbient;
-
-
        }
-
     }
     for (int y=0;y<sizeY;y++){
         for (int x=0;x<sizeX;x++){
-            VartoRet[y][x] = ShadeMapAux[y][x];//GetAround(ShadeMapAux,x,y);
+            VartoRet[y][x] = GetAround(ShadeMapAux,x,y);
         }
     }
     return VartoRet;
-
 }
 
 void Shader::Update(float dt){
@@ -151,7 +167,7 @@ void Shader::Update(float dt){
                 #pragma omp nowait
                 {
                     unsigned char jaaj = DataMap[y][x];
-                    unsigned char **Ret = ShootLightRay(x,y,jaaj,Maps[omp_get_thread_num()],Mapsaux[omp_get_thread_num()]);
+                    unsigned char **Ret = ShootLightRay(x,y,jaaj,Maps[omp_get_thread_num()]);
                     #pragma omp critical
                     LightSpots.emplace(Ret);
                 }
@@ -160,14 +176,19 @@ void Shader::Update(float dt){
         }
 
     }
-
+    #pragma omp critical
     while (LightSpots.size() > 0){
         unsigned char **Ret = LightSpots.top();
         LightSpots.pop();
         for (int y=0;y<sizeY;y++){
            for (int x=0;x<sizeX;x++){
-               unsigned char K =  Ret[y][x];//GetAround(Ret,x,y); //Segundo borramento!
-               ShadeMap[y][x] = std::min(ShadeMap[y][x],K);
+               unsigned char K = GetAround(Ret,x,y); //Segundo borramento!
+               if (ShadeMap[y][x] < 254){
+                    int offset = 255-ShadeMap[y][x];
+                    K = std::max(K-offset,0);
+               }
+            ShadeMap[y][x] = std::min(ShadeMap[y][x],K);
+
            }
         }
         for (int y=0;y<sizeY;y++){
@@ -181,6 +202,21 @@ void Shader::Update(float dt){
 void Shader::Render(){
     for (int y=0;y<sizeY;y++)
         for (int x=0;x<sizeX;x++){
-            RenderHelp::DrawSquareColorA(16*x,16*y,16,16,0,0,0, ShadeMap[y][x] );
+            if (DataMap[y][x] != 0){
+                if (DataMap[y][x] <= 126){
+                    light->Render(blockSize*x,blockSize*y);
+                    RenderHelp::DrawSquareColorA(blockSize*x,blockSize*y,blockSize,blockSize,255,255,0, 100 );
+                }else{
+                    block->Render(blockSize*x,blockSize*y);
+
+                }
+            }
+
         }
+
+    for (int y=0;y<sizeY;y++)
+        for (int x=0;x<sizeX;x++){
+            RenderHelp::DrawSquareColorA(blockSize*x,blockSize*y,blockSize,blockSize,0,0,0, ShadeMap[y][x] );
+        }
+
 }

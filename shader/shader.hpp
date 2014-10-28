@@ -1,6 +1,6 @@
 #ifndef SHADER_
 #define SHADER_
-
+#include "../sprite.hpp"
 
 class Shader{
     public:
@@ -10,6 +10,9 @@ class Shader{
 
 
         void AddLight(int,int,unsigned char);
+        void AddBlock(int,int,unsigned char);
+
+        void ClearLights();
 
         void Render();
         void Update(float dt);
@@ -18,7 +21,7 @@ class Shader{
     private:
         //Envoriment
         int GetAround(unsigned char**,int x,int y);
-        unsigned char ** ShootLightRay(int,int,unsigned char, unsigned char **, unsigned char **);
+        unsigned char ** ShootLightRay(int,int,unsigned char, unsigned char **);
 
         bool IsInLimits(int,int);
         unsigned char **ShadeMap,**DataMap;
@@ -27,5 +30,6 @@ class Shader{
         int MaxCycles,UseThreads;
         //Ambient
         float PermissiveAmbient;
+        Sprite *light,*block;
 };
 #endif // SHADER_

@@ -120,7 +120,7 @@
 1414457642 source:c:\users\mock\documents\github\bearshader\state.cpp
 	"state.hpp"
 
-1414469425 c:\users\mock\documents\github\bearshader\shader\title.hpp
+1414505563 c:\users\mock\documents\github\bearshader\shader\title.hpp
 	"../state.hpp"
 	"../text.hpp"
 	"../inputmanager.hpp"
@@ -136,7 +136,7 @@
 	<unordered_map>
 	<string>
 
-1414476206 source:c:\users\mock\documents\github\bearshader\shader\title.cpp
+1414507291 source:c:\users\mock\documents\github\bearshader\shader\title.cpp
 	"title.hpp"
 	"../camera.hpp"
 	<omp.h>
@@ -144,9 +144,10 @@
 1414459013 source:c:\users\mock\documents\github\bearshader\text.cpp
 	"text.hpp"
 
-1414476299 c:\users\mock\documents\github\bearshader\shader\shader.hpp
+1414506327 c:\users\mock\documents\github\bearshader\shader\shader.hpp
+	"../sprite.hpp"
 
-1414476814 source:c:\users\mock\documents\github\bearshader\shader\shader.cpp
+1414507048 source:c:\users\mock\documents\github\bearshader\shader\shader.cpp
 	"shader.hpp"
 	"../renderhelp.hpp"
 	<math.h>
