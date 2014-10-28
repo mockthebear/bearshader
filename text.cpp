@@ -116,10 +116,12 @@ Text::Text(std::string fontfilep, int fontsize,TextStyle stylep, std::string tex
     if (assetTable[ftnm]){
         font =assetTable[ftnm];
     }else{
-        printf("Loading font %s\n",fontfilep.c_str());
+        printf("Loading font [%s]\n",fontfilep.c_str());
         font = TTF_OpenFont(fontfilep.c_str(), fontsize);
         if (font != NULL){
             assetTable[ftnm] = font;
+        }else{
+            std::cout << "failedo n loading font " << fontfile << "\n";
         }
     }
     if (font){
@@ -157,6 +159,7 @@ Text::~Text(){
     }
 }
 void Text::Render(int cameraX,int cameraY,int alpha){
+
     if (SDLFONT){
         SDL_Rect dimensions2;
         double scaleRatioW = ConfigManager::GetInstance().ScaleRatioW();
@@ -165,6 +168,8 @@ void Text::Render(int cameraX,int cameraY,int alpha){
         dimensions2.y = box.y*scaleRatioH+cameraY*scaleRatioH;
         dimensions2.h = box.h*scaleRatioH*scaleY;
         dimensions2.w = box.w*scaleRatioW*scaleY;
+
+
         alpha = alpha < 0 ? 0 : alpha;
         alpha = alpha > 255 ? 255 : alpha;
 

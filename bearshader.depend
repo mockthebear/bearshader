@@ -1,32 +1,32 @@
 # depslib dependency file v1.0
-1408388630 source:c:\users\mock\documents\github\bearshader\camera.cpp
+1414457642 source:c:\users\mock\documents\github\bearshader\camera.cpp
 	"camera.hpp"
 	"inputmanager.hpp"
 
-1408120880 c:\users\mock\documents\github\bearshader\camera.hpp
+1414457642 c:\users\mock\documents\github\bearshader\camera.hpp
 	"geometry.hpp"
 	"object.hpp"
 	"definitions.hpp"
 	<stdio.h>
 
-1404594465 c:\users\mock\documents\github\bearshader\geometry.hpp
+1414457642 c:\users\mock\documents\github\bearshader\geometry.hpp
 	<math.h>
 	<stdio.h>
 
-1404852243 c:\users\mock\documents\github\bearshader\object.hpp
+1414457642 c:\users\mock\documents\github\bearshader\object.hpp
 	"geometry.hpp"
 	<string>
 
-1411584735 c:\users\mock\documents\github\bearshader\definitions.hpp
+1414457642 c:\users\mock\documents\github\bearshader\definitions.hpp
 
-1411589641 c:\users\mock\documents\github\bearshader\inputmanager.hpp
+1414457642 c:\users\mock\documents\github\bearshader\inputmanager.hpp
 	<SDL2/SDL.h>
 	"geometry.hpp"
 	<unordered_map>
 	<map>
 	<functional>
 
-1405195657 source:c:\users\mock\documents\github\bearshader\configmanager.cpp
+1414457906 source:c:\users\mock\documents\github\bearshader\configmanager.cpp
 	"configmanager.hpp"
 	"gamebase.hpp"
 	<SDL2/SDL.h>
@@ -34,10 +34,10 @@
 	"SDL2/SDL_mixer.h"
 	"SDL2/SDL_ttf.h"
 
-1402075014 c:\users\mock\documents\github\bearshader\configmanager.hpp
+1414457642 c:\users\mock\documents\github\bearshader\configmanager.hpp
 	"SDL2/SDL.h"
 
-1414412602 c:\users\mock\documents\github\bearshader\gamebase.hpp
+1414457642 c:\users\mock\documents\github\bearshader\gamebase.hpp
 	<cstdlib>
 	<iostream>
 	<memory>
@@ -53,7 +53,7 @@
 	"inputmanager.hpp"
 	"configmanager.hpp"
 
-1414412621 c:\users\mock\documents\github\bearshader\state.hpp
+1414457642 c:\users\mock\documents\github\bearshader\state.hpp
 	"object.hpp"
 	"sprite.hpp"
 	<cstdlib>
@@ -62,22 +62,22 @@
 	<vector>
 	<list>
 
-1404191321 c:\users\mock\documents\github\bearshader\sprite.hpp
+1414457642 c:\users\mock\documents\github\bearshader\sprite.hpp
 	"SDL2/SDL.h"
 	"SDL2/SDL_image.h"
 	<unordered_map>
 	<string>
 
-1414413341 source:c:\users\mock\documents\github\bearshader\gamebase.cpp
+1414458163 source:c:\users\mock\documents\github\bearshader\gamebase.cpp
 	"gamebase.hpp"
 	<time.h>
 	"shader/title.hpp"
 
-1404594625 source:c:\users\mock\documents\github\bearshader\geometry.cpp
+1414457642 source:c:\users\mock\documents\github\bearshader\geometry.cpp
 	"geometry.hpp"
 	<math.h>
 
-1411600754 source:c:\users\mock\documents\github\bearshader\inputmanager.cpp
+1414457642 source:c:\users\mock\documents\github\bearshader\inputmanager.cpp
 	"inputmanager.hpp"
 	"gamebase.hpp"
 	"configmanager.hpp"
@@ -85,7 +85,7 @@
 	<stdlib.h>
 	<iostream>
 
-1414412493 source:c:\users\mock\documents\github\bearshader\main.cpp
+1414457642 source:c:\users\mock\documents\github\bearshader\main.cpp
 	<stdio.h>
 	"SDL2/SDL.h"
 	"SDL2/SDL_image.h"
@@ -94,40 +94,41 @@
 	"gamebase.hpp"
 	"configmanager.hpp"
 
-1405195897 source:c:\users\mock\documents\github\bearshader\renderhelp.cpp
+1414457642 source:c:\users\mock\documents\github\bearshader\renderhelp.cpp
 	"renderhelp.hpp"
 	<stdio.h>
 
-1414412726 c:\users\mock\documents\github\bearshader\renderhelp.hpp
+1414457642 c:\users\mock\documents\github\bearshader\renderhelp.hpp
 	"gamebase.hpp"
 	"smarttexture.hpp"
 	<functional>
 
-1400109729 c:\users\mock\documents\github\bearshader\smarttexture.hpp
+1414457642 c:\users\mock\documents\github\bearshader\smarttexture.hpp
 	<SDL2/SDL.h>
 	<stdint.h>
 	<functional>
 
-1401051078 source:c:\users\mock\documents\github\bearshader\smarttexture.cpp
+1414457642 source:c:\users\mock\documents\github\bearshader\smarttexture.cpp
 	"smarttexture.hpp"
 	"gamebase.hpp"
 
-1404842272 source:c:\users\mock\documents\github\bearshader\sprite.cpp
+1414457642 source:c:\users\mock\documents\github\bearshader\sprite.cpp
 	"sprite.hpp"
 	"gamebase.hpp"
 	<math.h>
 
-1411425676 source:c:\users\mock\documents\github\bearshader\state.cpp
+1414457642 source:c:\users\mock\documents\github\bearshader\state.cpp
 	"state.hpp"
 
-1414413183 c:\users\mock\documents\github\bearshader\shader\title.hpp
+1414469425 c:\users\mock\documents\github\bearshader\shader\title.hpp
 	"../state.hpp"
 	"../text.hpp"
 	"../inputmanager.hpp"
 	"../gamebase.hpp"
 	"../renderhelp.hpp"
+	"shader.hpp"
 
-1411413879 c:\users\mock\documents\github\bearshader\text.hpp
+1414457642 c:\users\mock\documents\github\bearshader\text.hpp
 	"geometry.hpp"
 	"gamebase.hpp"
 	"sprite.hpp"
@@ -135,9 +136,20 @@
 	<unordered_map>
 	<string>
 
-1414413173 source:c:\users\mock\documents\github\bearshader\shader\title.cpp
+1414476206 source:c:\users\mock\documents\github\bearshader\shader\title.cpp
 	"title.hpp"
+	"../camera.hpp"
+	<omp.h>
 
-1414413210 source:c:\users\mock\documents\github\bearshader\text.cpp
+1414459013 source:c:\users\mock\documents\github\bearshader\text.cpp
 	"text.hpp"
+
+1414476299 c:\users\mock\documents\github\bearshader\shader\shader.hpp
+
+1414476814 source:c:\users\mock\documents\github\bearshader\shader\shader.cpp
+	"shader.hpp"
+	"../renderhelp.hpp"
+	<math.h>
+	<stdlib.h>
+	<omp.h>
 

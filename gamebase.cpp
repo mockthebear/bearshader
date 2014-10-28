@@ -12,7 +12,7 @@ Game::Game(char *title_,int w,int h){
         backBuffer = NULL;
         canDelete = false;
         if (not SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_TIMER | SDL_INIT_JOYSTICK)){
-            std::cout <<" fail!";
+            std::cout <<"Sdl started.";
         }
         if (not IMG_Init(IMG_INIT_JPG | IMG_INIT_PNG | IMG_INIT_TIF)){
             printf("IMG FAIL");

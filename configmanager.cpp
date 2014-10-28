@@ -11,7 +11,7 @@ ConfigManager::ConfigManager(){
     ScreenHT = ScreenWT = 0;
     scaleRatioHT = scaleRatioWT = 1.0f;
     ScreenW=640;
-    ScreenH=480;
+    ScreenH=520;
     UIscale=1;
     SprScale=1;
     ResizedW=ScreenW;
