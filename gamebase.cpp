@@ -1,6 +1,6 @@
 #include "gamebase.hpp"
 #include <time.h>
-#define MAXFPS 40
+
 #include "shader/title.hpp"
 Game* Game::instance = NULL;
 
@@ -79,11 +79,15 @@ void Game::UpdateTitleAsFps(float w8){
 
     if (nextUpdate <= SDL_GetTicks()){
         char Buff[100];
+        FPS = frames;
         sprintf(Buff,"%s (FPS: %f) = %f  = %f",title,frames*1000.0/(1000.0-(SDL_GetTicks()-olt)),GetDeltaTime(),w8);
         SDL_SetWindowTitle(window, Buff);
         olt = SDL_GetTicks()+1000;
         nextUpdate = olt;
+        updateFPS=true;
         frames = 0;
+    }else{
+        updateFPS= false;
     }
 }
 void Game::Run(){
@@ -136,9 +140,10 @@ void Game::Run(){
         n  = (1000.0/MAXFPS)-n < 0 ? 0 : n;
 
 
-        SDL_Delay( std::max( (1000.0/MAXFPS)-n - 5, 0.0) );
+        //SDL_Delay( std::max( (1000.0/MAXFPS)-n - 5, 0.0) );
 
         frames++;
+
         UpdateTitleAsFps((1000.0/MAXFPS)-n  );
 
     }

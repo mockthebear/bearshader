@@ -7,9 +7,9 @@ class Shader{
         Shader(int sx,int sy,int blockhw);
         ~Shader();
 
+        static Shader& GetInstance(int sx = 640,int sy = 480,int sz = 16);
 
-
-        void AddLight(int,int,unsigned char);
+        bool AddLight(int,int,unsigned char);
         void AddBlock(int,int,unsigned char);
 
         void ClearLights();
@@ -18,18 +18,32 @@ class Shader{
         void Update(float dt);
         //Config
         void SetMaxCycles(int n);
-    private:
-        //Envoriment
-        int GetAround(unsigned char**,int x,int y);
-        unsigned char ** ShootLightRay(int,int,unsigned char, unsigned char **);
 
         bool IsInLimits(int,int);
         unsigned char **ShadeMap,**DataMap;
+        float PermissiveAmbient;
+    private:
+        //Envoriment
+        //static void parallellight__(void*);
+        int GetAround(unsigned char**,int x,int y);
+        unsigned char ** ShootLightRay(int,int,unsigned char, unsigned char **);
+
+
+
         unsigned char*** Maps,***Mapsaux;
         int sizeX,sizeY,blockSize;
-        int MaxCycles,UseThreads;
+        int MaxCycles,UseThreads,UsePThreads;
         //Ambient
-        float PermissiveAmbient;
+
         Sprite *light,*block;
 };
+
+typedef struct{
+    int dis,Threads,x,y,MaxCycles;
+    unsigned char strenght;
+    Shader *MINE;
+    unsigned char ** ShadeMapAux;
+} parameters;
+
+
 #endif // SHADER_

@@ -41,7 +41,8 @@ class Game{
          void AddState(State *s){storedState = s;};
          std::stack<std::unique_ptr<State>> stateStack;
          bool canDelete,canDebug;
-         bool isClosing;
+         bool isClosing,updateFPS;
+         float FPS;
     private:
 
         State *storedState;
@@ -51,6 +52,7 @@ class Game{
         char title[500];
         int frameStart,frames,olt;
         float dt;
+
 
         SDL_Window* window;
 

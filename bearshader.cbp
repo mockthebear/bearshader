@@ -29,12 +29,12 @@
 				<Compiler>
 					<Add option="-O2" />
 					<Add option="-std=c++11" />
-					<Add option="-fopenmp" />
+					<Add option="-fopenmp -std=c++11" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
 					<Add option="-lMinGW32 -lSDL2main -lSDL2 -lSDL2_image" />
-					<Add option="-lSDL2_ttf -lSDL2_mixer -fopenmp" />
+					<Add option="-lSDL2_ttf -lSDL2_mixer -fopenmp -pthread" />
 				</Linker>
 			</Target>
 		</Build>
@@ -57,6 +57,8 @@
 		<Unit filename="object.hpp" />
 		<Unit filename="renderhelp.cpp" />
 		<Unit filename="renderhelp.hpp" />
+		<Unit filename="shader/block.cpp" />
+		<Unit filename="shader/block.hpp" />
 		<Unit filename="shader/shader.cpp" />
 		<Unit filename="shader/shader.hpp" />
 		<Unit filename="shader/title.cpp" />

@@ -10,6 +10,8 @@
 #include "../gamebase.hpp"
 #include "../renderhelp.hpp"
 #include "shader.hpp"
+#include "block.hpp"
+
 class Title: public State{
     public:
         Title();
@@ -26,7 +28,8 @@ class Title: public State{
         Text *blockSize_t,*TtoRender_t,*time_tt;
         Shader *lightSystem;
         int introStage;
-
+        float lfps;
+        float leTime;
 
 
 };
