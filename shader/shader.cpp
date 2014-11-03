@@ -18,8 +18,8 @@ Shader::Shader(int sx,int sy,int blockwh){
     MaxCycles = 74;
     ShadeMap = new unsigned char*[sy/blockwh];
     DataMap = new unsigned char*[sy/blockwh];
-    UseThreads =4;
-    UsePThreads=2;
+    UseThreads =1;  //OMP
+    UsePThreads=1;  //pthreads
     for (int y=0;y<sizeY;y++){
         ShadeMap[y] = new unsigned char[sx/blockwh];
         DataMap[y] = new unsigned char[sx/blockwh];
@@ -191,7 +191,7 @@ unsigned char** Shader::ShootLightRay(int x,int y,unsigned char strenght, unsign
         pthread_join(threads_[i], NULL);
     }
 
-    //#pragma omp parallel num_threads(UseThreads)
+    #pragma omp parallel num_threads(UseThreads)
     for (int y=0;y<sizeY;y++){
         for (int x=0;x<sizeX;x++){
             VartoRet[y][x] = GetAround(ShadeMapAux,x,y);

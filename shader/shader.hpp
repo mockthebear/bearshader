@@ -18,6 +18,11 @@ class Shader{
         void Update(float dt);
         //Config
         void SetMaxCycles(int n);
+        int GetPthreads(){return UsePThreads;};
+        int GetOpenmp(){return UseThreads;};
+
+        int SetOpenmp(int n){UseThreads = std::min(16,std::max(1,n));};
+        int SetPthreads(int n){UsePThreads = std::min(16,std::max(1,n));};
 
         bool IsInLimits(int,int);
         unsigned char **ShadeMap,**DataMap;

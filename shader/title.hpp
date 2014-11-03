@@ -25,7 +25,7 @@ class Title: public State{
         void AddCreature(GameObject *o){};
 
     private:
-        Text *blockSize_t,*TtoRender_t,*time_tt;
+        Text *blockSize_t,*TtoRender_t,*time_tt,*ShowThreads;
         Shader *lightSystem;
         int introStage;
         float lfps;

@@ -26,6 +26,7 @@ Title::Title(){
 
     blockSize_t = new Text("font1.otf",12,TEXT_SOLID,"32x32",{0,0,255});
     TtoRender_t = new Text("font1.otf",12,TEXT_SOLID,"Time to render",{0,0,255});
+    ShowThreads = new Text("font1.otf",12,TEXT_SOLID,"-",{0,0,255});
     time_tt = new Text("font1.otf",12,TEXT_SOLID,"0",{0,0,255});
 
 
@@ -38,6 +39,7 @@ Title::~Title(){
     delete blockSize_t;
     delete time_tt;
     delete TtoRender_t;
+    delete ShowThreads;
 
     std::cout << "Closed title\n";
 }
@@ -59,7 +61,11 @@ void Title::Update(float dt){
     char str[100];
     //leTime = (end.tv_usec - bgn.tv_usec) /1555.0;
     sprintf(str,"%.5lf",dur);
+
     time_tt->SetText(str);
+
+    sprintf(str,"Omp: %d   Pthreads: %d",Shader::GetInstance().GetOpenmp(),Shader::GetInstance().GetPthreads());
+    ShowThreads->SetText(str);
 
 }
 
@@ -76,8 +82,9 @@ void Title::Render(){
     //RenderHelp::DrawSquareColorA(0,480,1,80,255,255,255,255);
     RenderHelp::DrawSquareColorA(0,480,290,80,255,255,255,255);
 
-    blockSize_t->Render(10,490,255);
-    TtoRender_t->Render(70,490,255);
+    blockSize_t->Render(10,500,255);
+    ShowThreads->Render(10,480,255);
+    TtoRender_t->Render(70,500,255);
 
     time_tt->Render(200,490,255);
     if (Game::GetInstance()->updateFPS){
@@ -110,7 +117,15 @@ void Title::Input(){
     if (InputManager::GetInstance().KeyPress(SDLK_l)){
         Shader::GetInstance().ClearLights();
     }
+    if (InputManager::GetInstance().KeyPress(SDLK_o)){
+        Shader::GetInstance().SetOpenmp(Shader::GetInstance().GetOpenmp()+1);
+    }
     if (InputManager::GetInstance().KeyPress(SDLK_p)){
+        Shader::GetInstance().SetPthreads(Shader::GetInstance().GetPthreads()+1);
+    }
+
+
+    if (InputManager::GetInstance().KeyPress(SDLK_a)){
         for (int i=1;i<10;i++){
             while (!Shader::GetInstance().AddLight(rand()%40,rand()%30,133)){};
         }
